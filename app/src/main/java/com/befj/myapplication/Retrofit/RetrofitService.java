@@ -14,12 +14,11 @@ import retrofit2.http.GET;
 public interface RetrofitService {
 
   // Obtener token de autenticación (login)
-    @POST("login/")
-    Call<TokenResponse> loginUser(@Body User user);
+  @POST("login/")
+  Call<TokenResponse> loginUser(@Body User user);
 
-    @GET("tipos-documento/")
-    Call<List<TipoDocumento>> getTiposDocumento();
-
+  // Obtener tipos de documentos con autorización
+  @GET("tipos-documento/")
+  Call<List<TipoDocumento>> getTiposDocumento();
 
 }
-

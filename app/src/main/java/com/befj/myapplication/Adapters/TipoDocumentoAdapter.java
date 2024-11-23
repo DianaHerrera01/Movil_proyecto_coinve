@@ -27,15 +27,20 @@ public class TipoDocumentoAdapter extends RecyclerView.Adapter<TipoDocumentoAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tipo_documento, parent, false);
+        View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.tiposdocumentocard, parent, false);
         return new ViewHolder(root);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TipoDocumento tipoDocumento = listaTipoDocumentos.get(position);
-        holder.tvTipoDocumento.setText("Tipo Documento: " + tipoDocumento.getNom_tipo_doc());
+        // Accede al objeto TipoDocumento desde la lista
+        TipoDocumento objaut = listaTipoDocumentos.get(position);
+
+        // Establecer el texto en los TextView
+        holder.rv_tiposdocumento.setText("ID Tipo Documento: " + objaut.getnom_tipo_doc());
+        holder.rv_idtipodocumento.setText("Tipo Documento: " + objaut.getid_tipo_docum());
     }
+
 
     @Override
     public int getItemCount() {
@@ -44,11 +49,12 @@ public class TipoDocumentoAdapter extends RecyclerView.Adapter<TipoDocumentoAdap
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTipoDocumento;
+        TextView rv_idtipodocumento, rv_tiposdocumento;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTipoDocumento = itemView.findViewById(R.id.tvTipoDocumento);
+            rv_idtipodocumento = itemView.findViewById(R.id.rv_idtipodocumento);
+            rv_tiposdocumento = itemView.findViewById(R.id.rv_tiposdocumento);
         }
     }
 }

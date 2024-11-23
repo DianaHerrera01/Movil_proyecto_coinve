@@ -5,15 +5,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.widget.Toast;
-
-import com.befj.myapplication.Models.TipoDocumento;
 import com.befj.myapplication.Adapters.TipoDocumentoAdapter;
+import com.befj.myapplication.Models.TipoDocumento;
 import com.befj.myapplication.R;
 import com.befj.myapplication.Retrofit.RetrofitAdapter;
 
@@ -23,48 +22,42 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TipoDocumentoFragment extends Fragment {
+public class TipodocumentoFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    TipoDocumentoAdapter tipoDocumentoAdapter;
+    RecyclerView rv_tiposdocumento;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflamos el layout del fragmento
+        // Inflar el layout del fragmento
         View root = inflater.inflate(R.layout.fragment_tipodocumento, container, false);
 
-        recyclerView = root.findViewById(R.id.recyclerView);
+        rv_tiposdocumento = root.findViewById(R.id.rv_tiposdocumento);
+        rv_tiposdocumento.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
-        // Hacer la llamada para obtener los tipos de documento
-        obtenerTiposDocumento();
+        // Llamada a la API sin usar Token
+        Call<List<TipoDocumento>> traerTiposDocumento = RetrofitAdapter.getservices().getTiposDocumento();
 
-        return root;
-    }
-
-    // Método para obtener los tipos de documento desde el servidor
-    private void obtenerTiposDocumento() {
-        // Crear el objeto Call para la consulta sin autenticación
-        Call<List<TipoDocumento>> tipoDocumentoCall = RetrofitAdapter.getservices().getTiposDocumento();
-
-        tipoDocumentoCall.enqueue(new Callback<List<TipoDocumento>>() {
+        traerTiposDocumento.enqueue(new Callback<List<TipoDocumento>>() {
             @Override
             public void onResponse(Call<List<TipoDocumento>> call, Response<List<TipoDocumento>> response) {
-                if (response.isSuccessful()) {
-                    List<TipoDocumento> tiposDocumento = response.body();
-                    // Actualizar el RecyclerView con la lista de tipos de documento
-                    tipoDocumentoAdapter = new TipoDocumentoAdapter(tiposDocumento, getContext());
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    recyclerView.setAdapter(tipoDocumentoAdapter);
+                if (response.isSuccessful() && response.body() != null) {
+                    List<TipoDocumento> tiposDocumentoList = response.body();
+                    TipoDocumentoAdapter adaptador = new TipoDocumentoAdapter(tiposDocumentoList, root.getContext());
+                    rv_tiposdocumento.setAdapter(adaptador);
                 } else {
+                    Log.e("Response", "badresponse : " + response.raw() + response.errorBody());
                     Toast.makeText(getContext(), "Error al obtener los tipos de documento", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<TipoDocumento>> call, Throwable t) {
+                Log.e("Response", "onFailure: " + t.getCause() + t.getMessage());
                 Toast.makeText(getContext(), "Error de conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        return root;
     }
 }
