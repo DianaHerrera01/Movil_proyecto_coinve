@@ -21,4 +21,3 @@ public class TipoDocumento {
         this.nom_tipo_doc = nom_tipo_doc;
     }
 }
-

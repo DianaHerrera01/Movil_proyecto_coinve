@@ -1,6 +1,6 @@
 package com.befj.myapplication.Retrofit;
 
-import com.befj.myapplication.Models.Cliente;
+import com.befj.myapplication.Models.TipoDocumento;
 import com.befj.myapplication.Models.TokenResponse;
 import com.befj.myapplication.Models.User;
 
@@ -17,9 +17,8 @@ public interface RetrofitService {
     @POST("login/")
     Call<TokenResponse> loginUser(@Body User user);
 
-    // Obtener clientes con autenticación de token
-    @GET("clientes/")
-    Call<List<Cliente>> getClientes();
+    @GET("tipos-documento/")
+    Call<List<TipoDocumento>> getTiposDocumento();
 
 
 }

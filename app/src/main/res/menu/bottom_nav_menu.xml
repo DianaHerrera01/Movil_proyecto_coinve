@@ -3,7 +3,7 @@
     <item
         android:id="@+id/mnit_clientes"
         android:icon="@drawable/ic_clientes"
-        android:title="Clientes" />
+        android:title="Tipo Documento" />
 
     <item
         android:id="@+id/mnit_color1"
