@@ -37,8 +37,8 @@ public class TipoDocumentoAdapter extends RecyclerView.Adapter<TipoDocumentoAdap
         TipoDocumento objaut = listaTipoDocumentos.get(position);
 
         // Establecer el texto en los TextView
-        holder.rv_tiposdocumento.setText("ID Tipo Documento: " + objaut.getnom_tipo_doc());
-        holder.rv_idtipodocumento.setText("Tipo Documento: " + objaut.getid_tipo_docum());
+        holder.rv_tiposdocumento.setText("Tipo Documento: " + objaut.getnom_tipo_doc());
+        holder.rv_idtipodocumento.setText("ID Tipo Documento: " + objaut.getid_tipo_docum());
     }
 
 

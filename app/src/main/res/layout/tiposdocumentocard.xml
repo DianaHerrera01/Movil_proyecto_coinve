@@ -14,11 +14,11 @@
 
 
         <ImageView
-            android:id="@+id/iv_imagenautor"
+            android:id="@+id/iv_imagedoc"
             android:layout_width="48dp"
             android:layout_height="45dp"
             android:layout_marginRight="10dp"
-        android:src="@drawable/ic_clientes"/>
+        android:src="@drawable/ic_tipodocumento"/>
 
 
         <LinearLayout
